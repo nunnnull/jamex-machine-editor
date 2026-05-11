@@ -118,7 +118,7 @@ export default function ImageModal({
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.2 }}
-            className="flex max-h-full max-w-full flex-col items-center"
+            className="flex w-full max-h-full max-w-full flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
             {imgError ? (
@@ -130,7 +130,7 @@ export default function ImageModal({
               <img
                 src={imgSrc}
                 alt={image.file.name}
-                className="max-h-[85vh] max-w-full rounded-lg object-contain shadow-2xl"
+                className="mx-auto block max-h-[85vh] max-w-full rounded-lg object-contain shadow-2xl"
                 onError={() => setImgError(true)}
               />
             )}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { X, Download, Undo2, Paintbrush, Sliders, Droplet, Eraser, RotateCcw, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '../ui/button'
 import { cn } from '../../utils/cn'

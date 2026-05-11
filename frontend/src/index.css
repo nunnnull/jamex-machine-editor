@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 25% 10%;
+    --foreground: 210 20% 96%;
+    --card: 220 25% 12%;
+    --card-foreground: 210 20% 96%;
+    --popover: 220 25% 12%;
+    --popover-foreground: 210 20% 96%;
+    --primary: 35 90% 50%;
+    --primary-foreground: 220 25% 10%;
+    --secondary: 215 25% 18%;
+    --secondary-foreground: 210 20% 96%;
+    --muted: 215 25% 18%;
+    --muted-foreground: 215 15% 65%;
+    --accent: 200 60% 45%;
+    --accent-foreground: 210 20% 96%;
+    --destructive: 0 80% 55%;
+    --destructive-foreground: 210 20% 96%;
+    --border: 215 25% 22%;
+    --input: 215 25% 22%;
+    --ring: 35 90% 50%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .checkerboard {
+    background-image:
+      linear-gradient(45deg, #1a1a2e 25%, transparent 25%),
+      linear-gradient(-45deg, #1a1a2e 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #1a1a2e 75%),
+      linear-gradient(-45deg, transparent 75%, #1a1a2e 75%);
+    background-size: 20px 20px;
+    background-position:
+      0 0,
+      0 10px,
+      10px -10px,
+      -10px 0px;
+    background-color: #2d2d44;
+  }
+}

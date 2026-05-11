@@ -1,0 +1,27 @@
+{
+  "name": "machinery-scraper",
+  "version": "1.0.0",
+  "description": "AI-powered machinery web scraper platform",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "migrate": "node src/database/migrations/run.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "adm-zip": "^0.5.10",
+    "axios": "^1.6.0",
+    "bullmq": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "ioredis": "^5.3.2",
+    "playwright": "^1.40.0",
+    "sharp": "^0.33.0",
+    "uuid": "^9.0.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

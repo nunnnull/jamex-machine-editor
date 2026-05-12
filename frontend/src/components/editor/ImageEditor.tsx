@@ -282,36 +282,38 @@ export default function ImageEditor({
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
-      if (e.ctrlKey || e.metaKey) {
-        switch (e.key.toLowerCase()) {
-          case 'b':
-            e.preventDefault()
-            setTool('blur')
-            blurredRef.current = null
-            break
-          case 'q':
-            e.preventDefault()
-            resetAll()
-            break
-          case 'z':
-            e.preventDefault()
-            undo()
-            break
-          case 's':
-            e.preventDefault()
-            downloadEdited()
-            break
+      try {
+        if (e.ctrlKey || e.metaKey) {
+          switch (e.key.toLowerCase()) {
+            case 'b':
+              e.preventDefault()
+              setTool('blur')
+              blurredRef.current = null
+              break
+            case 'q':
+              e.preventDefault()
+              resetAll()
+              break
+            case 'z':
+              e.preventDefault()
+              undo()
+              break
+            case 's':
+              e.preventDefault()
+              downloadEdited()
+              break
+          }
+          return
         }
-        return
-      }
-      if (e.key === 'ArrowRight') {
-        e.preventDefault()
-        if (hasNext) handleNext()
-      }
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault()
-        if (hasPrev) handlePrev()
-      }
+        if (e.key === 'ArrowRight') {
+          e.preventDefault()
+          if (hasNext) handleNext()
+        }
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault()
+          if (hasPrev) handlePrev()
+        }
+      } catch {}
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)

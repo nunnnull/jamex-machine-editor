@@ -69,7 +69,7 @@ export default function ImageModal({
       window.removeEventListener('keydown', handler)
       document.body.style.overflow = ''
     }
-  }, [image, onClose, onPrev, onNext, onEdit])
+  }, [image, onClose, onPrev, onNext, onEdit, onEditBlur, onEditReset])
 
   const index = image ? images.findIndex(i => i.id === image.id) : -1
   const imgSrc = image
@@ -84,6 +84,7 @@ export default function ImageModal({
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0 } }}
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
           onClick={onClose}

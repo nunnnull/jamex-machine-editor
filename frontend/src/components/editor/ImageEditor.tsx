@@ -369,7 +369,7 @@ export default function ImageEditor({
           </button>
         </div>
 
-        <div className="relative flex-1 overflow-auto p-4">
+        <div className="relative flex flex-1 items-center justify-center overflow-auto p-4">
           <AnimatePresence>
             {resetting && (
               <motion.div

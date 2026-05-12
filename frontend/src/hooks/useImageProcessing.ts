@@ -5,6 +5,7 @@ import { uploadImages, pollStatus, getDownloadUrl, getStatus, type StatusItem } 
 export interface ImageItem {
   id: string
   file: File
+  fileSize: number
   originalUrl: string
   previewUrl?: string
   status: 'pending' | 'uploading' | 'processing' | 'done' | 'failed'
@@ -61,6 +62,7 @@ function deserializeImages(data: any[]): ImageItem[] {
   return data.map((d: any) => ({
     id: d.id,
     file: new File([], d.fileName, { type: d.fileType }),
+    fileSize: d.fileSize || 0,
     originalUrl: d.originalUrl || '',
     previewUrl: d.previewUrl || undefined,
     status: d.status,
@@ -159,6 +161,7 @@ export function useImageProcessing() {
     const newImages: ImageItem[] = validFiles.map((file) => ({
       id: genId(),
       file,
+      fileSize: file.size,
       originalUrl: URL.createObjectURL(file),
       status: 'uploading' as const,
       progress: 0,
@@ -236,6 +239,7 @@ export function useImageProcessing() {
               return {
                 id,
                 file: new File([], item.filename, { type: 'image/png' }),
+                fileSize: 0,
                 originalUrl: '',
                 previewUrl: item.preview_url || undefined,
                 status: item.status as ImageItem['status'],
@@ -414,6 +418,7 @@ export function useImageProcessing() {
           allImages.push({
             id: genId(),
             file: imgFile,
+            fileSize: imgFile.size,
             originalUrl: url,
             previewUrl: url,
             status: 'done' as const,
@@ -426,6 +431,7 @@ export function useImageProcessing() {
         allImages.push({
           id: genId(),
           file,
+          fileSize: file.size,
           originalUrl: url,
           previewUrl: url,
           status: 'done' as const,

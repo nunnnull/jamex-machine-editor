@@ -191,7 +191,7 @@ export default function ImageCard({
             {image.file.name}
           </p>
           <p className="text-xs text-muted-foreground">
-            {formatSize(image.file.size)}
+            {formatSize(image.fileSize || image.file.size)}
           </p>
         </div>
         <div className="flex items-center gap-1">

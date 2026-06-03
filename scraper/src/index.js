@@ -11,6 +11,16 @@ const jobRoutes = require('./routes/jobRoutes');
 const config = require('./config');
 
 const app = express();
+app.set('trust proxy', true);
+app.set('host', undefined);
+app.disable('x-powered-by');
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
 app.use(express.json());
 
 [config.tempDir, config.downloadsDir, config.logsDir].forEach(dir => {

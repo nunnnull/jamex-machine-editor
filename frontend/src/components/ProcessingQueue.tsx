@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { RefreshCw, Loader2, CheckCircle2, XCircle } from 'lucide-react'
+import { RefreshCw, Loader2, CheckCircle2, XCircle, ImageDown } from 'lucide-react'
 import { cn } from '../utils/cn'
 import { Button } from './ui/button'
 import ProgressBar from './ProgressBar'
@@ -34,6 +34,7 @@ export default function ProcessingQueue({
   onRetryFailed,
 }: ProcessingQueueProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [brokenImages, setBrokenImages] = useState<Set<string>>(new Set())
   const active = images.filter(
     (i) => i.status === 'uploading' || i.status === 'processing',
   )
@@ -106,11 +107,18 @@ export default function ProcessingQueue({
                   )}
                 >
                   <div className="h-8 w-8 shrink-0 overflow-hidden rounded bg-secondary">
-                    <img
-                      src={img.originalUrl}
-                      alt=""
-                      className="h-full w-full object-cover"
-                    />
+                    {brokenImages.has(img.id) || !img.originalUrl ? (
+                      <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+                        <ImageDown className="h-4 w-4" />
+                      </div>
+                    ) : (
+                      <img
+                        src={img.originalUrl}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        onError={() => setBrokenImages(prev => new Set(prev).add(img.id))}
+                      />
+                    )}
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-xs font-medium text-foreground">

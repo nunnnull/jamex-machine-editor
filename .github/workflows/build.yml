@@ -1,0 +1,57 @@
+name: Build Windows Executable
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: |
+            frontend/package-lock.json
+            backend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: frontend
+
+      - name: Copy frontend dist to backend
+        shell: pwsh
+        run: |
+          if (Test-Path backend/dist) { Remove-Item -Recurse -Force backend/dist }
+          New-Item -ItemType Directory -Path backend/dist
+          Copy-Item -Recurse -Path frontend/dist/* -Destination backend/dist/
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Install root dependencies (Electron)
+        run: npm ci
+
+      - name: Build Electron app
+        run: npx electron-builder --win --publish never
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: jamex-windows
+          path: dist-electron/
+          if-no-files-found: error

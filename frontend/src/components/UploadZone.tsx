@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
+import { useDropzone, type FileRejection } from 'react-dropzone'
 import { motion } from 'framer-motion'
 import { Upload, Image, FileWarning, Paintbrush } from 'lucide-react'
 import { cn } from '../utils/cn'
@@ -18,7 +18,7 @@ export default function UploadZone({ onUpload, onLocalUpload, disabled }: Upload
   const localInputRef = useRef<HTMLInputElement>(null)
 
   const onDrop = useCallback(
-    (acceptedFiles: File[], rejections: { errors: { message: string }[] }[]) => {
+    (acceptedFiles: File[], rejections: FileRejection[]) => {
       setRejection(null)
       if (rejections.length > 0) {
         const msg = rejections[0]?.errors[0]?.message || 'Invalid file'

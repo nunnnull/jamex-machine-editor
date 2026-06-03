@@ -1,9 +1,11 @@
 node_modules/
 /dist/
 frontend/dist/
+dist-electron/
 .env
 .DS_Store
 *.log
 backend/storage/meta/
 backend/storage/processed/
 backend/storage/temp/
+backend/dist/

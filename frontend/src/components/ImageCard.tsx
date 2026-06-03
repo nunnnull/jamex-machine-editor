@@ -67,12 +67,14 @@ export default function ImageCard({
         'group relative overflow-hidden rounded-lg border bg-card',
         isDragging && 'opacity-50 ring-2 ring-primary',
       )}
-      draggable
-      onDragStart={dragHandleProps?.onDragStart}
-      onDragEnd={dragHandleProps?.onDragEnd}
-      onDragOver={onDragOver}
-      onDrop={onDrop}
     >
+      <div
+        draggable
+        onDragStart={dragHandleProps?.onDragStart}
+        onDragEnd={dragHandleProps?.onDragEnd}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
+      >
       <div className="relative aspect-square overflow-hidden">
         {image.status === 'processing' || image.status === 'uploading' ? (
           <div className="flex h-full items-center justify-center bg-secondary/50">
@@ -209,6 +211,7 @@ export default function ImageCard({
             {cfg.label}
           </Badge>
         </div>
+      </div>
       </div>
     </motion.div>
   )

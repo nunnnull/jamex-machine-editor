@@ -1,0 +1,75 @@
+{
+  "name": "jamex",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Machinery Background Remover",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "node scripts/build.js",
+    "dist:win": "node scripts/build-electron.js --win --publish never",
+    "dist:mac": "node scripts/build-electron.js --mac --publish never",
+    "dist:linux": "node scripts/build-electron.js --linux --publish never",
+    "dist:all": "node scripts/build-electron.js --win --mac --linux --publish never",
+    "start": "electron ./electron/main.js --dev"
+  },
+  "build": {
+    "appId": "com.jamex.bgremover",
+    "productName": "Jamex",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "electron/**/*",
+      "backend/**/*",
+      "!backend/storage/**/*",
+      "!backend/node_modules/.cache/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "assets",
+        "to": "assets"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        },
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/logo.png"
+    },
+    "mac": {
+      "target": ["dmg", "zip"],
+      "icon": "assets/logo.png",
+      "category": "public.app-category.photography"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "assets/logo.png",
+      "category": "Photography"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "portable": {
+      "requestExecutionLevel": "user"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "backend/node_modules/sharp/**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  }
+}
